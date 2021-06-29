@@ -19,6 +19,7 @@ quantity = []
 
 def main():
     action.clear()
+    
     task = input("What can I do for you, boss?\n")
     if task == 'signout':
         action.append(task)
@@ -26,6 +27,8 @@ def main():
     elif task == 'signin':
         action.append(task)
         job_number_()
+    elif task == 'close':
+        safe_close()
     else:
         print("Command not recognized;")
         main()
@@ -85,6 +88,7 @@ def sign_in():
                 active_job.clear()
                 retain.clear()
                 quantity.clear()
+                action.clear()
                 main()
         else:
             print("I couldn't find that item, please try again:\n")
@@ -108,13 +112,14 @@ def sign_out():
                 active_job.clear()
                 retain.clear()
                 quantity.clear()
+                action.clear()
                 main()
         else:
             print("I couldn't find that item, please try again:\n")
             sign_out()
 
 def safe_close():
-
+    print("Ight, fuck you then I guess? Buh-bye!")
     sys.exit()
                     
 if __name__ == "__main__":
