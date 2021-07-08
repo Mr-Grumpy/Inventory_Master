@@ -101,7 +101,7 @@ def sign_in():
         print("Returned " + quantity_ + "pc's of "  + item_ + " back against " + job_hold[0])
         file_name = (date_now + ".txt")
         time_stamp = open(file_name, "a+")
-        time_stamp.write("Returned " + quantity_ + "pc's of " + item_ + " back against " + job_hold[0])
+        time_stamp.write("Returned " + quantity_ + "pc's of " + item_ + " (" + str(sheet['B'+str(n)].value) + ")" + " against " + job_hold[0])
         time_stamp.close()
         o = input("Is there anything else you'd like to charge against " + job_hold[0] + "?\n" + "Y/N.").lower()
         if o == "y":
@@ -130,7 +130,7 @@ def sign_out():
         print("Signed out " + quantity_ + "pc's of "  + item_ + " against " + job_hold[0])
         file_name = (date_now + ".txt")
         time_stamp = open(file_name, "a+")
-        time_stamp.write("Signed out " + quantity_ + "pc's of " + item_ + " against " + job_hold[0])
+        time_stamp.write("Signed out " + quantity_ + "pc's of " + item_ + " (" + str(sheet['B'+str(n)].value) + ")" + " against " + job_hold[0])
         time_stamp.close()
         o = input("Is there anything else you'd like to charge against " + job_hold[0] + "?\n" + "Y/N.").lower()
         if o == "y":
