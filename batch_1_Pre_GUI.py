@@ -45,11 +45,9 @@ def main():
         task.append(o)
         job_check()
     elif o == "close app":
-        task.append(o)
-        job_check()
+        close_app()
     elif o == "list active jobs":
-        task.append(o)
-        job_check()
+        active_jobs()
     else:
         print("I do not recognize this task.\n")
         main()
@@ -69,16 +67,16 @@ def job_check():
                 f.close()
                 task.clear()
                 sign_in()
-            elif task[0] == "close app":
-                job_hold.append(job_)
-                f.close()
-                task.clear()
-                close_app()
-            elif task[0] == "list active jobs":
-                job_hold.append(job_)
-                f.close()
-                task.clear()
-                active_jobs()
+##            elif task[0] == "close app":
+##                job_hold.append(job_)
+##                f.close()
+##                task.clear()
+##                close_app()
+##            elif task[0] == "list active jobs":
+##                job_hold.append(job_)
+##                f.close()
+##                task.clear()
+##                active_jobs()
         else:
             print("Please enter a valid job number.")
             job_check()
@@ -146,8 +144,11 @@ def sign_out():
 
 
 def close_app():
-    print('Okay, I guess? Bye bitch.')
-    sys.exit()
+    x = input('Are you sure you wish to close the program?\n' + 'Y/N.\n').lower()
+    if x == 'y':
+        sys.exit()
+    else:
+        main()
 
 
 def active_jobs():
