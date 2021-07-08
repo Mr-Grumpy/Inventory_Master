@@ -13,7 +13,7 @@ from sys import exit
 
 ##Define a search function that will parse the Excel with Product Name, Product Number, or Product Description to return, Name/description/part#
 
-functions_list = ["Sign In", "Sign Out", "Close App", "List Active Jobs"]
+functions_list = ["Sign In", "Sign Out", "Close App", "List Active Jobs", "List Inventory"]
 workbook = openpyxl.load_workbook('invMaster.xlsx')
 task = []
 job_hold = []
@@ -48,6 +48,8 @@ def main():
         close_app()
     elif o == "list active jobs":
         active_jobs()
+    elif o == "list inventory":
+        inventory_list()
     else:
         print("I do not recognize this task.\n")
         main()
@@ -159,6 +161,12 @@ def active_jobs():
     f.close()
     main()
 
+
+def inventory_list():
+    sheet = workbook.active
+    for n in range(1, 600):
+        print(str(sheet['A'+str(n)].value) + ' - ' + str(sheet['B'+str(n)].value))
+    main()
 
                     
 if __name__ == "__main__":
