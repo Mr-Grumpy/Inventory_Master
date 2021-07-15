@@ -17,13 +17,14 @@ functions_list = ["Sign In", "Sign Out", "Close App", "List Active Jobs", "List 
 workbook = openpyxl.load_workbook('invMaster.xlsx')
 task = []
 job_hold = []
-dt = datetime.datetime.now()
-date_now = dt.strftime("%b, %d")
+today = datetime.date.today()
+yesterday = today - datetime.timedelta(days=1)
 
 ##item_hold = []
 
-def start_up():
-    
+   
+
+def start_up():    
     try:
         print("Open excel sheet: " + str(workbook.active))
         print("List of tasks:")
@@ -50,6 +51,8 @@ def main():
         active_jobs()
     elif o == "list inventory":
         inventory_list()
+    elif o == "shit":
+        shit()
     else:
         print("I do not recognize this task.\n")
         main()
@@ -88,8 +91,9 @@ def job_check():
 
 def sign_in():
     sheet = workbook.active
+    row_count = sheet.max_row
     item_ = input("What item would you like to return against " + job_hold[0].replace('\n','') + "?\n")
-    for n in range(1, 600):
+    for n in range(1, row_count+1):
         valid_ = True
         if item_ == str(sheet['A'+str(n)].value):
             break
@@ -99,7 +103,7 @@ def sign_in():
     if valid_ == True:
         quantity_ = input("How many?\n")
         print("Returned " + quantity_ + "pc's of "  + item_ + " back against " + job_hold[0])
-        file_name = (date_now + ".txt")
+        file_name = (today + ".txt")
         time_stamp = open(file_name, "a+")
         time_stamp.write("Returned " + quantity_ + "pc's of " + item_ + " (" + str(sheet['B'+str(n)].value) + ")" + " against " + job_hold[0])
         time_stamp.close()
@@ -117,8 +121,9 @@ def sign_in():
 
 def sign_out():
     sheet = workbook.active
+    row_count = sheet.max_row
     item_ = input("What item would you like to sign out against " + job_hold[0].replace('\n','') + "?\n")
-    for n in range(1, 600):
+    for n in range(1, row_count):
         valid_ = True
         if item_ == str(sheet['A'+str(n)].value):
             break
@@ -128,7 +133,7 @@ def sign_out():
     if valid_ == True:
         quantity_ = input("How many?\n")
         print("Signed out " + quantity_ + "pc's of "  + item_ + " against " + job_hold[0])
-        file_name = (date_now + ".txt")
+        file_name = (today + ".txt")
         time_stamp = open(file_name, "a+")
         time_stamp.write("Signed out " + quantity_ + "pc's of " + item_ + " (" + str(sheet['B'+str(n)].value) + ")" + " against " + job_hold[0])
         time_stamp.close()
@@ -164,10 +169,14 @@ def active_jobs():
 
 def inventory_list():
     sheet = workbook.active
-    for n in range(1, 600):
-        print(str(sheet['A'+str(n)].value) + ' - ' + str(sheet['B'+str(n)].value))
+    row_count = sheet.max_row
+    for n in range(1, row_count+1):
+        print(str(sheet['A'+str(n)].value) + ' - ' + str(sheet['B'+str(n)].value) + ': ' + str(sheet['C'+str(n)].value))
     main()
 
+
+    
+          
                     
 if __name__ == "__main__":
     start_up()
